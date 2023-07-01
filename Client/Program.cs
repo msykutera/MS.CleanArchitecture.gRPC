@@ -2,9 +2,9 @@
 using Client;
 
 using var channel = GrpcChannel.ForAddress("https://localhost:7024");
-var client = new Greeter.GreeterClient(channel);
+var client = new Licensor.LicensorClient(channel);
 
-var request = new HelloRequest { Name = "Michal" };
-var result = await client.SayHelloAsync(request);
+var request = new CreateLicenseGrpcRequest { UserId = "Michal", Expires = new Google.Protobuf.WellKnownTypes.Timestamp() };
+var result = await client.CreateLicenseAsync(request);
 
-Console.WriteLine(result?.Message);
+Console.WriteLine(result.Success ? "License created succesfully." : "Failed to create license.");

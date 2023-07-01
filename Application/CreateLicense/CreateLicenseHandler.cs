@@ -6,7 +6,7 @@ namespace Application.CreateLicense
     {
         public Task<CreateLicenseResponse> Handle(CreateLicenseRequest request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(new CreateLicenseResponse { Success = true });
         }
     }
 }

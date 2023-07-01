@@ -1,8 +1,10 @@
 using API.Services;
+using Application.CreateLicense;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddGrpc();
+builder.Services.AddMediatR(c => c.RegisterServicesFromAssembly(typeof(CreateLicenseHandler).Assembly));
 
 var app = builder.Build();
 

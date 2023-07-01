@@ -1,22 +1,24 @@
-using API;
+using Application.CreateLicense;
 using Grpc.Core;
+using MediatR;
 
 namespace API.Services
 {
-    public class GreeterService : Greeter.GreeterBase
+    public class GreeterService : Licensor.LicensorBase
     {
-        private readonly ILogger<GreeterService> _logger;
-        public GreeterService(ILogger<GreeterService> logger)
+        private readonly ISender _mediator;
+
+        public GreeterService(ISender mediator)
         {
-            _logger = logger;
+            _mediator = mediator;
         }
 
-        public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
+        public override async Task<CreateLicenseGrpcResponse> CreateLicense(CreateLicenseGrpcRequest grpcRequest, ServerCallContext context)
         {
-            return Task.FromResult(new HelloReply
-            {
-                Message = "Hello " + request.Name
-            });
+            var request = new CreateLicenseRequest(grpcRequest.UserId, grpcRequest.Expires.ToDateTime());
+            var result = await _mediator.Send(request, context.CancellationToken);
+            var grpcResult = new CreateLicenseGrpcResponse { Success = result.Success };
+            return grpcResult;
         }
     }
 }

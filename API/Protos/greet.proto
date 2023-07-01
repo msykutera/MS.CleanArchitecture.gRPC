@@ -2,16 +2,19 @@ syntax = "proto3";
 
 option csharp_namespace = "API";
 
-package greet;
+import "google/protobuf/timestamp.proto";
 
-service Greeter {
-  rpc SayHello (HelloRequest) returns (HelloReply);
+package licensor;
+
+service Licensor {
+  rpc CreateLicense (CreateLicenseGrpcRequest) returns (CreateLicenseGrpcResponse);
 }
 
-message HelloRequest {
-  string name = 1;
+message CreateLicenseGrpcRequest {
+  string userId = 1;
+  google.protobuf.Timestamp expires = 2;
 }
 
-message HelloReply {
-  string message = 1;
+message CreateLicenseGrpcResponse {
+  bool success = 1;
 }

@@ -1,13 +1,12 @@
 ﻿using FluentValidation;
 
-namespace Application.CreateLicense
+namespace Application.CreateLicense;
+
+public class ValidateLicenseValidator : AbstractValidator<CreateLicenseRequest>
 {
-    public class ValidateLicenseValidator : AbstractValidator<CreateLicenseRequest>
+    public ValidateLicenseValidator()
     {
-        public ValidateLicenseValidator()
-        {
-            RuleFor(x => x.Expires).GreaterThanOrEqualTo(DateTime.Now);
-            RuleFor(x => x.UserId).NotEmpty();
-        }
+        RuleFor(x => x.Expires).GreaterThanOrEqualTo(DateTime.Now);
+        RuleFor(x => x.UserId).NotEmpty();
     }
 }

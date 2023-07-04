@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
 
-namespace Application.ValidateLicense
+namespace Application.ValidateLicense;
+
+public class ValidateLicenseValidator : AbstractValidator<ValidateLicenseRequest>
 {
-    public class ValidateLicenseValidator : AbstractValidator<ValidateLicenseRequest>
+    public ValidateLicenseValidator()
     {
-        public ValidateLicenseValidator()
-        {
-            RuleFor(x => x.UserId).NotEmpty();
-        }
+        RuleFor(x => x.UserId).NotEmpty();
     }
 }

@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Application.Common;
+using Infrastructure;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.IntegrationTests.Common;
 
@@ -19,6 +23,8 @@ internal class CustomWebApplicationFactory : WebApplicationFactory<Program>
             configurationBuilder.AddConfiguration(integrationConfig);
         });
 
-        builder.ConfigureServices((builder, services) => { });
+        builder.ConfigureServices((builder, services) => {
+            services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase("CleanArchitectureGrpcDb"));
+        });
     }
 }

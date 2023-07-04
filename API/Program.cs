@@ -2,7 +2,7 @@ using API.Services;
 using Application;
 using Infrastructure;
 
-internal class Program
+public class Program
 {
     private static void Main(string[] args)
     {

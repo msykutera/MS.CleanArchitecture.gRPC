@@ -8,6 +8,7 @@ package licensor;
 
 service Licensor {
   rpc CreateLicense (CreateLicenseGrpcRequest) returns (CreateLicenseGrpcResponse);
+  rpc ValidateLicense (ValidateLicenseGrpcRequest) returns (ValidateLicenseGrpcResponse);
 }
 
 message CreateLicenseGrpcRequest {
@@ -16,5 +17,13 @@ message CreateLicenseGrpcRequest {
 }
 
 message CreateLicenseGrpcResponse {
+  bool success = 1;
+}
+
+message ValidateLicenseGrpcRequest {
+  string userId = 1;
+}
+
+message ValidateLicenseGrpcResponse {
   bool success = 1;
 }

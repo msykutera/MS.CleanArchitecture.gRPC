@@ -1,4 +1,4 @@
 ﻿namespace Domain
 {
-    public record class License(string UserId, DateTime Expires);
+    public record class License(int Id, string UserId, DateTime Expires);
 }

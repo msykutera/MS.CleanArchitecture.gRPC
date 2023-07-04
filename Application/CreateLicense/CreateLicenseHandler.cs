@@ -15,7 +15,7 @@ namespace Application.CreateLicense
 
         public async Task<CreateLicenseResponse> Handle(CreateLicenseRequest request, CancellationToken cancellationToken)
         {
-            var license = new License(request.UserId, request.Expires);
+            var license = new License(0, request.UserId, request.Expires);
 
             _dbContext.Licenses.Add(license);
 

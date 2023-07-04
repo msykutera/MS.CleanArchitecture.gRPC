@@ -5,8 +5,8 @@ using Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddGrpc();
-builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 

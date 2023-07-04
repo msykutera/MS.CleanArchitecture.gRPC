@@ -1,7 +1,4 @@
 ﻿namespace Application.CreateLicense
 {
-    public class CreateLicenseResponse
-    {
-        public bool Success { get; set; }
-    }
+    public record CreateLicenseResponse(bool Success);
 }

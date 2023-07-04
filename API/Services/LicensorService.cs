@@ -4,11 +4,11 @@ using MediatR;
 
 namespace API.Services
 {
-    public class GreeterService : Licensor.LicensorBase
+    public class LicensorService : Licensor.LicensorBase
     {
         private readonly ISender _mediator;
 
-        public GreeterService(ISender mediator)
+        public LicensorService(ISender mediator)
         {
             _mediator = mediator;
         }

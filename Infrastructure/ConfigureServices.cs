@@ -8,9 +8,7 @@ public static class ConfigureServices
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
-        services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseInMemoryDatabase("CleanArchitectureGrpcDb"));
-
+        services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase("CleanArchitectureGrpcDb"));
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
         return services;

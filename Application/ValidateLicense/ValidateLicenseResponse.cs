@@ -1,4 +1,3 @@
-﻿namespace Application.ValidateLicense
-{
-    public record ValidateLicenseResponse(bool Success);
-}
+﻿namespace Application.ValidateLicense;
+
+public record ValidateLicenseResponse(bool Success);

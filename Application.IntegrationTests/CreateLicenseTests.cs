@@ -35,7 +35,7 @@ public class CreateLicenseTests : Testing
     }
 
     [Test]
-    public async Task LicenseIsNotCreatedWhenDateIsPassed()
+    public async Task LicenseIsNotCreatedWhenPastExpiresDate()
     {
         var command = new CreateLicenseRequest("test-user", DateTime.UtcNow.AddYears(-1));
         var action = async () => await SendAsync(command);

@@ -1,37 +1,22 @@
 ﻿using Grpc.Net.Client;
 using Client;
-using Google.Protobuf.WellKnownTypes;
 
-var startup = new Startup();
-
-using var channel = GrpcChannel.ForAddress(startup.ApiSettings.Url);
-var client = new Licensor.LicensorClient(channel);
-
-await CreateLicense();
-await ValidateLicense();
-await ValidateMissingLicense();
-
-async Task CreateLicense()
+try
 {
-    var expires = DateTime.UtcNow.AddDays(1);
-    var createRequest = new CreateLicenseGrpcRequest { UserId = "Michal", Expires = Timestamp.FromDateTime(expires) };
-    var createResult = await client.CreateLicenseAsync(createRequest);
+    var startup = new Startup();
 
-    Console.WriteLine(createResult.Success ? "License created succesfully." : "Failed to create license.");
+    using var channel = GrpcChannel.ForAddress(startup.ApiSettings.Url);
+    var grpcClient = new Licensor.LicensorClient(channel);
+
+    var client = new LicenseClient(grpcClient);
+
+    await client.CreateLicense();
+    await client.ValidateLicense();
+    await client.ValidateMissingLicense();
+}
+catch (Exception ex)
+{
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine($"Error occured. {ex.Message}");
 }
 
-async Task ValidateLicense()
-{
-    var validateRequest = new ValidateLicenseGrpcRequest { UserId = "Michal" };
-    var validateResult = await client.ValidateLicenseAsync(validateRequest);
-
-    Console.WriteLine(validateResult.Success ? "License is valid." : "There is no valid license.");
-}
-
-async Task ValidateMissingLicense()
-{
-    var validateRequestMissingLicense = new ValidateLicenseGrpcRequest { UserId = "Missing" };
-    var validateResultMissingLicense = await client.ValidateLicenseAsync(validateRequestMissingLicense);
-
-    Console.WriteLine(validateResultMissingLicense.Success ? "License is valid." : "There is no valid license.");
-}

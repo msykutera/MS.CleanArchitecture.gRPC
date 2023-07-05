@@ -14,7 +14,7 @@ namespace Client
 
             IConfiguration config = builder.Build(); 
             
-            ApiSettings = config.GetSection("ApiSettings").Get<ApiSettings>();
+            ApiSettings = config.GetSection("ApiSettings").Get<ApiSettings>() ?? throw new Exception("API configuration is missing");
         }
     }
 }

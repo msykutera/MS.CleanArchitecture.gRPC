@@ -1,3 +1,4 @@
+using Application.Common.Exceptions;
 using Application.CreateLicense;
 using Application.IntegrationTests.Common;
 using Domain;
@@ -22,5 +23,23 @@ public class CreateLicenseTests : Testing
         license.Should().NotBeNull();
         license!.UserId.Should().Be(expectedUserId);
         license!.Expires.Should().Be(expectedExpires);
+    }
+
+    [Test]
+    public async Task LicenseIsNotCreatedWhenUserIdIsMissing()
+    {
+        var command = new CreateLicenseRequest("", DateTime.UtcNow.AddYears(1));
+        var action = async () => await SendAsync(command);
+
+        await action.Should().ThrowAsync<ValidationException>();
+    }
+
+    [Test]
+    public async Task LicenseIsNotCreatedWhenDateIsPassed()
+    {
+        var command = new CreateLicenseRequest("test-user", DateTime.UtcNow.AddYears(-1));
+        var action = async () => await SendAsync(command);
+
+        await action.Should().ThrowAsync<ValidationException>();
     }
 }

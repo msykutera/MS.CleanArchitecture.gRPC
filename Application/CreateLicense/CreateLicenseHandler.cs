@@ -15,7 +15,7 @@ public class CreateLicenseHandler : IRequestHandler<CreateLicenseRequest, Create
 
     public async Task<CreateLicenseResponse> Handle(CreateLicenseRequest request, CancellationToken cancellationToken)
     {
-        var license = new License(0, request.UserId, request.Expires);
+        var license = new License(0, request.UserId, request.Expires.ToUniversalTime());
 
         _dbContext.Licenses.Add(license);
 
